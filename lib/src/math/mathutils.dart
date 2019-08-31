@@ -24,8 +24,9 @@ StarMathUtils get mUtils => StarMathUtils();
 ///construction of StarMathUtils, mUtils.
 class StarMathUtils {
 
-  ///round to a double place where the second input corresponds to the amount
-  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx)
+  ///Round to a double place where the second input corresponds to the amount
+  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
+  ///
   ///decPlaces must be >= 0
   double roundToDouble(double input, int decPlaces) {
     double parsedInp = 1.0;
@@ -40,8 +41,9 @@ class StarMathUtils {
     }
   }
 
-  ///round up (ceil) to a double place where the second input corresponds to the amount
-  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx)
+  ///Round up (ceil) to a double place where the second input corresponds to the amount
+  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
+  ///
   ///decPlaces must be >= 0
   double ceilToDouble(double input, int decPlaces) {
     double parsedInp = 1.0;
@@ -56,8 +58,9 @@ class StarMathUtils {
     }
   }
 
-  ///round down (floor) to a double place where the second input corresponds to the amount
-  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx)
+  ///Round down (floor) to a double place where the second input corresponds to the amount
+  ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
+  ///
   ///decPlaces must be >= 0
   double floorToDouble(double input, int decPlaces) {
     double parsedInp = 1.0;
@@ -72,22 +75,22 @@ class StarMathUtils {
     }
   }
 
-  ///returns whether given input is a power of two
+  ///Returns whether given input is a power of two.
   bool isPowerOfTwo(num input) {
     return log(2, input).ceil() == log(2, input).floor();
   }
 
-  ///returns log given base and input
+  ///Returns log given base and input.
   double log(num base, num input) {
     return math.log(input) / math.log(base);
   }
 
-  ///returns whether given double is a mathematical integer (e.x. 6.0)
+  ///Returns whether given double is a mathematical integer (e.x. 6.0).
   bool isMathematicalInteger(double input) {
     return input % 1 == 0.0;
   }
 
-  ///returns factorial given integer input
+  ///Returns factorial given integer input.
   int factorial(int input) {
     if (input < 0) {
       throw ArgumentError('factorial($input) is undefined for negative arguments.');
@@ -103,12 +106,16 @@ class StarMathUtils {
   }
 
   ///A list of provided factorials, where factorials[i] == i!
-  ///This list will grow the more you use the provided factorial class with values > 11
+  ///
+  ///This list will grow the more you use the provided factorial method with values > 11
   static List<int> factorials = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800, 87178291200];
 
   ///Returns true if x is within some tolerance of y
+  ///
   ///Ex. 1: fuzzyEquals(1, 4, 3) returns true
+  ///
   ///Ex. 2: fuzzyEquals(1, 6, 3) returns false
+  ///
   ///Tolerance must be positive
   bool fuzzyEquals (num x, num y, num tolerance) {
     if (tolerance < 0) {
@@ -122,7 +129,9 @@ class StarMathUtils {
 
 
   ///Tests if the number n is probably a prime.
+  ///
   ///This variant of the probabilistic prime test by Miller–Rabin is deterministic.
+  ///
   ///It has been verified to return correct results for all n < 341,550,071,728,321.
   bool isPrime(int n) {
     if (n == 2 || n == 3 || n == 5) {
@@ -159,49 +168,51 @@ class StarMathUtils {
     return true;
   }
 
-  ///returns least common multiple of inputs
+  ///Returns least common multiple of inputs.
   int lcm(int x, int y) => x * y ~/ x.gcd(y);
 
-  ///computes hyperbolic arc-cosine of a number
+  ///Computes hyperbolic arc-cosine of a number.
   double acosh(num x) => math.log(x + math.sqrt(x * x - 1));
 
-  ///computes hyperbolic arc-sine of a number
+  ///Computes hyperbolic arc-sine of a number.
   double asinh(num x) => x.isInfinite && x.isNegative ? x : math.log(x + math.sqrt(x * x + 1));
 
-  ///computes hyperbolic arc-tangent of a number
+  ///Computes hyperbolic arc-tangent of a number.
   double atanh(num x) => math.log((1 + x) / (1 - x)) / 2;
 
-  ///computes hyperbolic cosine of a number
+  ///Computes hyperbolic cosine of a number.
   double cosh(num x) {
     final y = math.exp(x);
     return (y + 1 / y) / 2;
   }
 
-  ///computes hyperbolic sine of a number
+  ///Computes hyperbolic sine of a number.
   double sinh(num x) {
     final y = math.exp(x);
     return (y - 1 / y) / 2;
   }
 
-  ///computes hyperbolic tangent of a number
+  ///Computes hyperbolic tangent of a number.
   double tanh(num x) {
     final a = math.exp(x), b = math.exp(-x);
     return a.isInfinite ? 1 : b.isInfinite ? -1 : (a - b) / (a + b);
   }
 
   /// Best method for computing the arithmetic mean.
+  ///
   /// The alternative (x + y) / 2 fails for large values, which this handles.
   int mean(int x, int y) {
     return (x & y) + ((x ^ y) >> 1);
   }
 
-  ///Combinations function from probability, nCr
-  ///Also described as the binomial coefficient
+  ///Combinations function from probability, nCr.
+  ///
+  ///Also described as the binomial coefficient.
   int combinationsOf(int n, int r) {
     return ( factorial(r) / (factorial(r-n) * factorial(n) ) ).round();
   }
 
-  ///Permutations function from probability, nPr
+  ///Permutations function from probability, nPr.
   int permutationsOf(int n, int r) {
     return (factorial(r)/factorial(r-n)).round();
   }

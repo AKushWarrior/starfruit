@@ -37,9 +37,11 @@ class StarStatsXY {
   ///Get the y coordinates of the given data
   List<num> get y => xy.values.toList();
 
-  ///Calculates the correlation coefficient .
+  ///Calculates the correlation coefficient.
   ///This is the strength of the linear relationship of given points.
+  ///
   ///(Also known as r)
+  ///
   ///The larger |r| is, the stronger the correlation
   num get corCoefficient {
     StarStats xStats = StarStats(x);
@@ -57,8 +59,10 @@ class StarStatsXY {
   }
 
   ///Calculates the adjusted coefficient of determination.
-  ///This is the strength of the data fit for a given model
+  ///This is the strength of the data fit for a given model.
+  ///
   ///Takes the degree of the model (Quadratic => 2, Linear => 1)
+  ///
   ///(Also known as adjusted r^2)
   ///The larger r^2, the stronger the data fit for the model
   num detCoefficient (int degree) {
@@ -66,8 +70,7 @@ class StarStatsXY {
     return 1 - ((1-orig)*(x.length -1)) / (x.length - degree - 1);
   }
 
-  ///Calculate linear regression of a set of points:
-  ///Returns a list of form y = mx + b, with linearReg[0] being m and linearReg[1] being b.
+  ///Calculate linear regression of a set of points: Returns a list of form y = mx + b, with linearReg[0] being m and linearReg[1] being b.
   List<num> get linReg {
     List<num> slopevalue = [];
     StarStats xStats = StarStats(x);

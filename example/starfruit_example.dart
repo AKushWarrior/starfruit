@@ -67,6 +67,45 @@ main () {
 
   //end math functions
 
+  //start collection functions
+
+  //Separate List into chunks
+  print("Separate List into chunks of 4:");
+  print(cUtils.chunks([1,2,3,4,5,6,7,8], 4));
+  print("");
+
+  //Collapse List<List<Object>> into just List<Object>
+  print("Collapse List<List> into List:");
+  print(cUtils.collapse( [[1,2,3],[4,5,6,7,8]] ));
+  print("");
+
+  //Get every nth object of list
+  print("Get every 4th object:");
+  print(cUtils.nth([1,2,3,4,5,6,7,8], 4));
+  print("");
+
+  //Get every n random elements of list
+  print("Get 5 random elements:");
+  print(cUtils.random([1,2,3,4,5,6,7,8], 5));
+  print("");
+
+  //Flip keys and values of a map
+  print("Flip keys and values of a map:");
+  print(cUtils.flip({1:0, 2:8, 3:4, 0:5}));
+  print("");
+
+  //Zip two Lists into a map
+  print("Zip two lists into a map:");
+  print(cUtils.zip([1,2,3,4], [5,6,7,8]));
+  print("");
+
+  //Unzip a map into two lists
+  print("Unzip a map into two lists:");
+  print(cUtils.unzip({0:1, 8:2, 4:3, 5:0}));
+  print("");
+
+  //end collection functions
+
   //start stats functions
   var stats = StarStats([1,3,4,5,12,3,4,67,8,0,22]);
 

@@ -19,5 +19,6 @@ GNU General Public License for more details.
 library starfruit;
 
 export 'src/math/mathutils.dart';
+export 'src/math/collectionutils.dart';
 export 'src/math/stats/statsutils.dart';
 export 'src/math/stats/pairedstatsutils.dart';
