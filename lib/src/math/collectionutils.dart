@@ -19,7 +19,7 @@ StarCollectionsUtils get cUtils => StarCollectionsUtils();
 
 class StarCollectionsUtils {
 
-  ///Separate inp into a List of multiple, chunkSize List<Object>'s.
+  ///Separate ```inp``` into a ```List``` of multiple, ```chunkSize``` ```List<Object>```'s.
   List<List<Object>> chunks (List<Object> inp, int chunkSize) {
     var i =0;
     List<List<Object>> ret = [];
@@ -31,7 +31,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Collapse a List<List<Object>> into a List<Object>.
+  ///Collapse a ```List<List<Object>>``` into a ```List<Object>```.
   List<Object> collapse (List<List<Object>> inp) {
     List<Object> ret = [];
     for (var i in inp) {
@@ -42,7 +42,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Return a list of every n'th object from inp.
+  ///Return a list of every n'th (n = ```interval```) object from ```inp```.
   List<Object> nth (List<Object> inp, int interval) {
     List<Object> ret = [];
     for (var i = interval-1; i< inp.length; i+= interval) {
@@ -51,7 +51,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Return n random elements from inp
+  ///Return ```n``` random elements from ```inp```
   List<Object> random (List<Object> inp, [int n = 1]) {
     List<Object> ret = [];
     var random = Random.secure();
@@ -61,7 +61,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Takes a Map and flips the keys and values.
+  ///Takes a ```Map``` and flips the keys and values.
   Map<Object,Object> flip (Map<Object, Object> inp) {
     var x = inp.keys.toList();
     var y = inp.values.toList();
@@ -69,7 +69,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Zips two Lists into a map.
+  ///Zips two ```Lists``` into a ```Map```.
   Map<Object, Object> zip (List<Object> keys, List<Object> values) {
     Map<Object,Object> ret = {};
     for (var i = 0; i<keys.length; i++) {
@@ -79,7 +79,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Unzips a map into two Lists and returns a List containing the two Lists.
+  ///Unzips a ```Map``` into two ```Lists``` and returns a ```List``` containing the two ```Lists```.
   List<List<Object>> unzip (Map<Object,Object> inp) {
     List<List<Object>> ret = [];
     ret.add(inp.keys.toList());
@@ -87,7 +87,7 @@ class StarCollectionsUtils {
     return ret;
   }
 
-  ///Checks if every Object in inp satisfies test
+  ///Checks if every ```Object``` in ```inp``` satisfies test
   bool every (List<Object> inp, bool test(Object element)) {
     for (var i in inp) {
       if (!test(i)) {

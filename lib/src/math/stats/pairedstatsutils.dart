@@ -80,7 +80,7 @@ class StarStatsXY {
   }
 
   ///Calculate linear regression of a set of points: Returns a list of form y =
-  ///mx + b, with linearReg[0] being m and linearReg[1] being b.
+  ///mx + b, with `linearReg[0]` being m and `linearReg[1]` being b.
   List<num> get linReg {
     List<num> slopevalue = [];
     StarStats xStats = StarStats(x);
@@ -107,7 +107,7 @@ class StarStatsXY {
   }
 
   ///Calculate quadratic regression of a set of points: Returns a list of form y =
-  ///ax^2 + bx + c, with quadReg[0] being m, quadReg[1] being b, and quadreg[2] being c.
+  ///ax^2 + bx + c, with `quadReg[0]` being a, `quadReg[1]` being b, and `quadreg[2]` being c.
   List<num> get quadReg {
     List<double> yy = [];
     List<double> xx = [];
@@ -129,5 +129,71 @@ class StarStatsXY {
     var b = B[1][0];
     var a = B[2][0];
     return [a,b,c];
+  }
+
+  ///Calculate quadratic regression of a set of points: Returns a list of form y =
+  ///ax^3 + bx^2 + cx + d, with `cubicReg[0]` being a, `cubicReg[1]` being b, `cubicReg[2]` being c, and `cubicReg[3]` being d.
+  List<num> get cubicReg {
+    List<double> yy = [];
+    List<double> xx = [];
+    for (var numb in y) {
+      yy.add(numb.toDouble());
+    }
+    for (var numb in x) {
+      xx.add(numb.toDouble());
+    }
+    List<double> xcol1 = List.filled(xx.length, 1.0);
+    List<double> xcol3 = List(xx.length);
+    for (var i = 0; i <xx.length; i++) {
+      xcol3[i] = pow(xx[i],2);
+    }
+    List<double> xcol4 = List(xx.length);
+    for (var i = 0; i <xx.length; i++) {
+      xcol4[i] = pow(xx[i],3);
+    }
+    Matrix Y = Matrix([yy]).transpose();
+    Matrix X = Matrix([xcol1, xx, xcol3, xcol4]).transpose();
+    Matrix B = (X.transpose() * X).inverse() * X.transpose() * Y;
+    var d = B[0][0];
+    var c = B[1][0];
+    var b = B[2][0];
+    var a = B[3][0];
+    return [a,b,c,d];
+  }
+
+  ///Calculate quartic regression of a set of points: Returns a list of form y =
+  ///ax^4 + bx^3 + cx^2 + dx + e, with `cubicReg[0]` being a, `cubicReg[1]` being b,
+  ///`cubicReg[2]` being c, `cubicReg[3]` being d, and `cubicReg[4]` being e.
+  List<num> get quarReg {
+    List<double> yy = [];
+    List<double> xx = [];
+    for (var numb in y) {
+      yy.add(numb.toDouble());
+    }
+    for (var numb in x) {
+      xx.add(numb.toDouble());
+    }
+    List<double> xcol1 = List.filled(xx.length, 1.0);
+    List<double> xcol3 = List(xx.length);
+    for (var i = 0; i <xx.length; i++) {
+      xcol3[i] = pow(xx[i],2);
+    }
+    List<double> xcol4 = List(xx.length);
+    for (var i = 0; i <xx.length; i++) {
+      xcol4[i] = pow(xx[i],3);
+    }
+    List<double> xcol5 = List(xx.length);
+    for (var i = 0; i <xx.length; i++) {
+      xcol5[i] = pow(xx[i],4);
+    }
+    Matrix Y = Matrix([yy]).transpose();
+    Matrix X = Matrix([xcol1, xx, xcol3, xcol4, xcol5]).transpose();
+    Matrix B = (X.transpose() * X).inverse() * X.transpose() * Y;
+    var e = B[0][0];
+    var d = B[1][0];
+    var c = B[2][0];
+    var b = B[3][0];
+    var a = B[4][0];
+    return [a,b,c,d,e];
   }
 }

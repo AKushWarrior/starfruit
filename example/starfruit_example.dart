@@ -173,8 +173,20 @@ main () {
 
   //Get quadratic regression line
   print("Calculate quadratic regression line in form y = ax^2 + bx + c:");
-  var qr = xystats.quadReg;
-  print("y = ${qr[0]}x^2 + ${qr[1]}x + ${qr[2]}");
+  var qdr = xystats.quadReg;
+  print("y = ${qdr[0]}x^2 + ${qdr[1]}x + ${qdr[2]}");
+  print("");
+
+  //Get cubic regression line
+  print("Calculate cubic regression line in form y = ax^3 + bx^2 + cx + d:");
+  var cr = xystats.cubicReg;
+  print("y = ${cr[0]}x^3 + ${cr[1]}x^2 + ${cr[2]}x + ${cr[3]}");
+  print("");
+
+  //Get quartic regression line
+  print("Calculate quartic regression line in form y = ax^4 + bx^3 + cx^2 + dx + e:");
+  var qrr = xystats.quarReg;
+  print("y = ${qrr[0]}x^4 + ${qrr[1]}x^3 + ${qrr[2]}x^2 + ${qrr[3]}x + ${qrr[4]}");
   print("");
   // end xy stats functions
 }

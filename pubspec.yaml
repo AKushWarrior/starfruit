@@ -1,6 +1,6 @@
 name: starfruit
 description: A mathematical library extending and bettering provided dart and dart:math functions.
-version: 0.2.2
+version: 0.2.3
 homepage: https://github.com/AKushWarrior/starfruit
 repository: https://github.com/AKushWarrior/starfruit
 author: Aditya Kishore <akushwarrior@gmail.com>

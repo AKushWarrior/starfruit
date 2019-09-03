@@ -89,7 +89,7 @@ class StarStats {
     return sqrt(variance);
   }
 
-  ///Returns the number of unique digits in given set (cardinality).
+  ///Returns the number of unique digits in given set (a.k.a. cardinality).
   num get cardinality {
     List<num> covdelems = [];
     for (var i in a) {
