@@ -10,7 +10,7 @@ the Free Software Foundation, either version 3 of the License, or
 This program is distributed in the hope that it will be useful,
 but WITHOUT ANY WARRANTY; without even the implied warranty of
 MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU General Public License for more details.
+GNU Lesser General Public License for more details.
 */
 
 import 'dart:math';
@@ -30,7 +30,7 @@ class StarStats {
   ///Get given data
   List<num> get baseSet => a;
 
-  ///returns the median of given set
+  ///Returns the median of given set.
   num get median {
     a.sort();
     if (a.length.isOdd) {
@@ -43,7 +43,7 @@ class StarStats {
     }
   }
 
-  ///returns the mean of given set
+  ///Returns the mean of given set.
   num get mean {
     num sum = 0;
 
@@ -54,7 +54,7 @@ class StarStats {
     return sum/a.length;
   }
 
-  ///returns the mode of given set
+  ///Returns the mode of given set.
   num get mode {
     int maxValue = 0, maxCount = 0, i, j;
 
@@ -74,7 +74,7 @@ class StarStats {
     return maxValue;
   }
 
-  ///returns the variance of given set
+  ///Returns the variance of given set.
   num get variance {
     num totvar = 0;
     num avg = mean;
@@ -84,12 +84,12 @@ class StarStats {
     return totvar/(a.length-1);
   }
 
-  ///returns the standard deviation of given set
+  ///Returns the standard deviation of given set.
   num get stdDev {
     return sqrt(variance);
   }
 
-  ///Returns the number of unique digits in given set (cardinality)
+  ///Returns the number of unique digits in given set (cardinality).
   num get cardinality {
     List<num> covdelems = [];
     for (var i in a) {
@@ -100,13 +100,13 @@ class StarStats {
     return covdelems.length;
   }
 
-  ///Returns the k greatest elements of given set
+  ///Returns the k greatest elements of given set.
   List<num> topElements (num k) {
     a.sort();
     return a.sublist(a.length-k);
   }
 
-  ///Returns the k least elements of given set
+  ///Returns the k least elements of given set.
   List<num> bottomElements (num k) {
     a.sort();
     return a.sublist(0,k);

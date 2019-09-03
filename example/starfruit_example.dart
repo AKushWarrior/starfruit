@@ -155,16 +155,26 @@ main () {
   print(xystats.corCoefficient);
   print("");
 
+  //Get determination coefficent
+  print("Calculate determination coefficient:");
+  print(xystats.detCoefficient);
+  print("");
+
+  //Get adjusted determination coefficient
+  print("Calculate adj. determination coefficient:");
+  print(xystats.adjDetCoefficient);
+  print("");
+
   //Get linear regression line
   print("Calculate linear regression line in form y = mx + b:");
   var lr = xystats.linReg;
   print("y = ${lr[0]}x + ${lr[1]}");
   print("");
 
-  //Get adjusted determination coefficient for linear regression line
-  print("Calculate adj. determination coefficient for linear regression:");
-  print(xystats.detCoefficient(1));
+  //Get quadratic regression line
+  print("Calculate quadratic regression line in form y = ax^2 + bx + c:");
+  var qr = xystats.quadReg;
+  print("y = ${qr[0]}x^2 + ${qr[1]}x + ${qr[2]}");
   print("");
-
   // end xy stats functions
 }

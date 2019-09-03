@@ -1,3 +1,7 @@
+## 0.2.2 (9/2/2019)
+- Introducing Quadratic Regression to ```StarStatsXY()```
+- README and documentation edits
+
 ## 0.2.1 (8/30/2019)
 - Introducing ```StarCollectionUtils()```
 - Documentation improvement

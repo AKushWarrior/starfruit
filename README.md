@@ -10,7 +10,7 @@ it.
 Note: https://pub.dev/documentation/starfruit/latest/starfruit/starfruit-library.html 
 is auto-generated dartdocs. This has a more detailed rundown of every class
 and method. For here, every class and method is listed, along with basic
-usage for each class. You can also see usages below for extra guidance
+usage for each class. You can also see usages below for extra guidance.
 
 ##### StarMathUtils() OR mUtils
 - To use, instantiate class with StarMathUtils() or use default instantiation (mUtils)
@@ -68,6 +68,7 @@ where desired data is formatted {x1: y1, x2: y2, x3: y3, ...}
     - `x`
     - `y`
     - `linReg`
+    - `quadReg`
     - `corCoefficient`
 - Methods:
     - `detCoefficient (int degree)`
@@ -242,15 +243,26 @@ main() {
   print(xystats.corCoefficient);
   print("");
 
+  //Get determination coefficent
+  print("Calculate determination coefficient:");
+  print(xystats.detCoefficient);
+  print("");
+
+  //Get adjusted determination coefficient
+  print("Calculate adj. determination coefficient:");
+  print(xystats.adjDetCoefficient);
+  print("");
+
   //Get linear regression line
   print("Calculate linear regression line in form y = mx + b:");
-  var lr = xystats.linearReg;
+  var lr = xystats.linReg;
   print("y = ${lr[0]}x + ${lr[1]}");
   print("");
 
-  //Get adjusted determination coefficient for linear regression line
-  print("Calculate adj. determination coefficient for linear regression:");
-  print(xystats.detCoefficient(1));
+  //Get quadratic regression line
+  print("Calculate quadratic regression line in form y = ax^2 + bx + c:");
+  var qr = xystats.quadReg;
+  print("y = ${qr[0]}x^2 + ${qr[1]}x + ${qr[2]}");
   print("");
 }
 ```
