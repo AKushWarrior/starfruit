@@ -14,16 +14,15 @@ GNU Lesser General Public License for more details.
 */
 
 import 'dart:math';
-
 import 'dart:math' as math;
 
+///Default implementation of StarMathUtils().
 StarMathUtils get mUtils => StarMathUtils();
 
 ///A class of packaged math utilities and various commonplace functions not
 ///provided by (or improving upon) Dart functions. They can be used the default
 ///construction of StarMathUtils, mUtils.
 class StarMathUtils {
-
   ///Round to a double place where the second input corresponds to the amount
   ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
   ///

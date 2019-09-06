@@ -1,3 +1,11 @@
+## 0.3.1
+- ```StarLinkedList()``` introduced
+- Documentation edits
+- Significant README revamp
+
+## 0.2.3+1 (9/2/2019)
+- Hotfix for misrepresentative README issue
+
 ## 0.2.3 (9/2/2019)
 - Introducing Cubic and Quartic Regression to ```StarStatsXY()```
 - README and documentation edits

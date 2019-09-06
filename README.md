@@ -7,73 +7,38 @@ it.
 
 ---
 
+It takes time, effort, and mental power to keep this package updated, useful, and
+improving. If you used or are using it, I'd appreciate it if you could spare a few 
+dollars to help me continue to do so.
+
+[![PayPal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge&labelColor=black)](https://www.paypal.me/kishoredev)
+
+---
+
 ## Classes
 
 Note: https://pub.dev/documentation/starfruit/latest/starfruit/starfruit-library.html 
 is auto-generated dartdocs. This has a more detailed rundown of every class
-and method. For here, every class and method is listed, along with basic
-usage for each class. You can also see usages below for extra guidance.
+and method. It's impossible to list every method offered and its purpose, 
+so I won't try. You **should** use the usage examples and documentation to understand
+the utilities of this library. For here, I'm just offering basic details on how to 
+instantiate every class.
 
 ##### StarMathUtils() OR mUtils
-- To use, instantiate class with StarMathUtils() or use default instantiation (mUtils)
-- Methods (mUtils.___):
-    - `roundToDouble (double input, int decimalPlaces)`
-    - `ceilToDouble (double input, int decimalPlaces)`
-    - `floorToDouble (double input, int decimalPlaces)`
-    - `isPowerOfTwo (input)`
-    - `log (base, input)`
-    - `isMathematicalInteger (double input)`
-    - `factorial (input)`
-    - `fuzzyEquals (x, y, tolerance)`
-    - `isPrime (int n)`
-    - `lcm (x, y)`
-    - `sinh (x)`
-    - `cosh (x)`
-    - `tanh (x)`
-    - `asinh (x)`
-    - `acosh (x)`
-    - `atanh (x)`
-- Inputs are num unless otherwise stated
+To use, instantiate class with StarMathUtils() or use default instantiation (mUtils).
 
 ##### StarCollectionUtils() OR cUtils
-- To use, instantiate class with StarCollectionsUtils() or use default instantiation (cUtils)
-- Methods (cUtils.___):
-    - `chunks (List<Object> inp, int chunkSize)`
-    - `collapse (List<List<Object>> inp)`
-    - `nth (List<Object> inp, int interval)`
-    - `random (List<Object> inp, [int n = 1])`
-    - `flip (Map<Object, Object> inp)`
-    - `zip (List<Object> keys, List<Object> values)`
-    - `unzip (Map<Object,Object> inp)`
-    - `every (List<Object> inp, bool test(Object element))`
+To use, instantiate class with StarCollectionsUtils() or use default instantiation (cUtils).
 
-##### StarStats (dataset)
-- To use, instantiate class with ``` StarStats(List<num> a) ``` and pass desired data as a paramater
-- Getters:
-    - `baseSet`
-    - `median`
-    - `mean`
-    - `mode`
-    - `variance`
-    - `stddev`
-    - `cardinality`
-- Methods:
-    - `topElements (elements)`
-    - `bottomElements (elements)`
-- Inputs are num
+##### StarStats (```List<num>``` dataset)
+To use, instantiate class with ``` StarStats(List<num> a) ``` and pass desired data as a paramater.
 
-##### StarStatsXY (Map of points)
-- To use, instantiate class with ``` StarStatsXY(Map<num,num> xy) ``` and pass desired data as parameter, 
-where desired data is formatted {x1: y1, x2: y2, x3: y3, ...}
-- Getters:
-    - `baseMap`
-    - `x`
-    - `y`
-    - `linReg`
-    - `quadReg`
-    - `corCoefficient`
-- Methods:
-    - `detCoefficient (int degree)`
+##### StarStatsXY (```Map<num,num>``` map of points)
+To use, instantiate class with ``` StarStatsXY(Map<num,num> xy) ``` and pass desired data as parameter, 
+where input data is formatted {x1: y1, x2: y2, x3: y3, ...}
+
+##### StarLinkedList (```List<Object>``` base list)
+To use, instantiate class with ``` StarLinkedList (List<Object> a) ``` and pass base list as a paramater.
 ---
 
 ## Usage Examples
@@ -280,6 +245,67 @@ main() {
   print("");
 }
 ```
+
+##### Linked Lists:
+
+```dart
+import 'package:starfruit/starfruit.dart';
+
+main() {
+  //giving numbers, but can take any object
+  var llist = StarLinkedList( [12,5,6,1,4,6] );
+
+  //Push object to front of list
+  print("Push to front of list:");
+  llist.push(8);
+  print(llist);
+  print("");
+
+  //Add object to back of list
+  print("Add to back of list:");
+  llist.add(8);
+  print(llist);
+  print("");
+
+  //Fetch 4th index (5th item) of list
+  print("4th index:");
+  print(llist[4]);
+  print("");
+
+  //Add two StarLinkedLists together
+  print("Double llist:");
+  print(llist+llist);
+  print("");
+
+  //Make 4th index 8
+  print("Make 4th index 8:");
+  llist[4] = 8;
+  print(llist);
+  print("");
+
+  //Add 3 numbers
+  print("Add 3 numbers:");
+  print(llist.addAll([1,2,3]));
+  print("");
+
+  //Remove object from StarLinkedList given value
+  print("Remove object from StarLinkedList given value:");
+  llist.remove(12);
+  print(llist);
+  print("");
+
+  //Delete object from StarLinkedList given index
+  print("Delete object from StarLinkedList given index:");
+  llist.delete(2);
+  print(llist);
+  print("");
+
+  //Take sublist of StarLinkedList
+  print("Take sublist of StarLinkedList:");
+  print(llist.sublist(1,4));
+  print("");
+}
+```
 ---
 
 ## Features and bugs
@@ -289,6 +315,11 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 [tracker]: https://github.com/AKushWarrior/starfruit/issues
 
 ---
+
+[![Pub](https://img.shields.io/pub/v/starfruit?color=blue&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge&labelColor=black)](https://pub.dev/packages/starfruit)
+[![License](https://img.shields.io/github/license/AKushWarrior/starfruit?color=blue&style=for-the-badge&labelColor=black)](https://opensource.org/licenses/lgpl-3.0.html)
+[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/starfruit?color=blue&style=for-the-badge&labelColor=black)](https://github.com/AKushWarrior/starfruit)
+
 
 ###### Starfruit, a set of Dart utility libraries.
 ###### ©2019 Aditya Kishore

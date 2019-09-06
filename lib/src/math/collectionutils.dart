@@ -15,10 +15,13 @@ GNU Lesser General Public License for more details.
 
 import 'dart:math';
 
+///Default implementation of StarCollectionsUtils().
 StarCollectionsUtils get cUtils => StarCollectionsUtils();
 
+///A class of packaged collection utilities and various commonplace functions not
+///provided by (or improving upon) Dart functions. They can be used the default
+///construction of StarCollectionsUtils, cUtils.
 class StarCollectionsUtils {
-
   ///Separate ```inp``` into a ```List``` of multiple, ```chunkSize``` ```List<Object>```'s.
   List<List<Object>> chunks (List<Object> inp, int chunkSize) {
     var i =0;

@@ -189,4 +189,60 @@ main () {
   print("y = ${qrr[0]}x^4 + ${qrr[1]}x^3 + ${qrr[2]}x^2 + ${qrr[3]}x + ${qrr[4]}");
   print("");
   // end xy stats functions
+
+  //start linked list functions
+
+  //giving numbers, but can take any object
+  var llist = StarLinkedList( [12,5,6,1,4,6] );
+
+  //Push object to front of list
+  print("Push to front of list:");
+  llist.push(8);
+  print(llist);
+  print("");
+
+  //Add object to back of list
+  print("Add to back of list:");
+  llist.add(8);
+  print(llist);
+  print("");
+
+  //Fetch 4th index (5th item) of list
+  print("4th index:");
+  print(llist[4]);
+  print("");
+
+  //Add two StarLinkedLists together
+  print("Double llist:");
+  print(llist+llist);
+  print("");
+
+  //Make 4th index 8
+  print("Make 4th index 8:");
+  llist[4] = 8;
+  print(llist);
+  print("");
+
+  //Add 3 numbers
+  print("Add 3 numbers:");
+  print(llist.addAll([1,2,3]));
+  print("");
+
+  //Remove object from StarLinkedList given value
+  print("Remove object from StarLinkedList given value:");
+  llist.remove(12);
+  print(llist);
+  print("");
+
+  //Delete object from StarLinkedList given index
+  print("Delete object from StarLinkedList given index:");
+  llist.delete(2);
+  print(llist);
+  print("");
+
+  //Take sublist of StarLinkedList
+  print("Take sublist of StarLinkedList:");
+  print(llist.sublist(1,4));
+  print("");
+  //end linked list functions
 }

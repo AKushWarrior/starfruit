@@ -15,10 +15,11 @@ GNU Lesser General Public License for more details.
 
 ///Starfruit is a set of utility libraries for Dart, inspired by and partially
 ///ported from Google's Guava (for Java). Currently, math and statistics
-///libraries has been provided, with support for more planned in the near future.
+///libraries have been provided, with support for more planned in the near future.
 library starfruit;
 
 export 'src/math/mathutils.dart';
 export 'src/math/collectionutils.dart';
 export 'src/math/stats/statsutils.dart';
 export 'src/math/stats/pairedstatsutils.dart';
+export 'src/math/data/linkedlistutils.dart';
