@@ -1,3 +1,7 @@
+## 0.3.1+1
+- Major README issue
+- No functional change
+
 ## 0.3.1
 - ```StarLinkedList()``` introduced
 - Documentation edits

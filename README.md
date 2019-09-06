@@ -8,7 +8,7 @@ it.
 ---
 
 It takes time, effort, and mental power to keep this package updated, useful, and
-improving. If you used or are using it, I'd appreciate it if you could spare a few 
+improving. If you used or are using the package, I'd appreciate it if you could spare a few 
 dollars to help me continue to do so.
 
 [![PayPal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge&labelColor=black)](https://www.paypal.me/kishoredev)
@@ -39,6 +39,7 @@ where input data is formatted {x1: y1, x2: y2, x3: y3, ...}
 
 ##### StarLinkedList (```List<Object>``` base list)
 To use, instantiate class with ``` StarLinkedList (List<Object> a) ``` and pass base list as a paramater.
+
 ---
 
 ## Usage Examples
