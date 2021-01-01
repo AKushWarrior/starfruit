@@ -1,31 +1,23 @@
 /*
 Starfruit, a set of Dart utility libraries.
-Copyright (C) 2019 Aditya Kishore
+Copyright (C) 2020 Aditya Kishore
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 */
 
 import 'dart:math';
 
 ///Default implementation of StarCollectionsUtils().
-StarCollectionsUtils get cUtils => StarCollectionsUtils();
+_StarCollectionsUtils get collectionUtils => _StarCollectionsUtils();
 
 ///A class of packaged collection utilities and various commonplace functions not
 ///provided by (or improving upon) Dart functions. They can be used the default
 ///construction of StarCollectionsUtils, cUtils.
-class StarCollectionsUtils {
+class _StarCollectionsUtils {
   ///Separate ```inp``` into a ```List``` of multiple, ```chunkSize``` ```List<Object>```'s.
   List<List<Object>> chunks (List<Object> inp, int chunkSize) {
     var i =0;
-    List<List<Object>> ret = [];
+    var ret = <List<Object>>[];
     for (i = 0; i<inp.length; i+= chunkSize) {
       ret.add(inp.sublist(i, i+chunkSize));
       inp.removeRange(i, i+chunkSize);
@@ -36,7 +28,7 @@ class StarCollectionsUtils {
 
   ///Collapse a ```List<List<Object>>``` into a ```List<Object>```.
   List<Object> collapse (List<List<Object>> inp) {
-    List<Object> ret = [];
+    var ret = <Object>[];
     for (var i in inp) {
       for (var x in i) {
         ret.add(x);
@@ -47,7 +39,7 @@ class StarCollectionsUtils {
 
   ///Return a list of every n'th (n = ```interval```) object from ```inp```.
   List<Object> nth (List<Object> inp, int interval) {
-    List<Object> ret = [];
+    var ret = <Object>[];
     for (var i = interval-1; i< inp.length; i+= interval) {
       ret.add(inp[i]);
     }
@@ -56,7 +48,7 @@ class StarCollectionsUtils {
 
   ///Return ```n``` random elements from ```inp```
   List<Object> random (List<Object> inp, [int n = 1]) {
-    List<Object> ret = [];
+    var ret = <Object>[];
     var random = Random.secure();
     for (var i = 0; i<n; i++) {
       ret.add(inp[random.nextInt(inp.length)]);
@@ -68,15 +60,15 @@ class StarCollectionsUtils {
   Map<Object,Object> flip (Map<Object, Object> inp) {
     var x = inp.keys.toList();
     var y = inp.values.toList();
-    Map<Object,Object> ret = zip(y,x);
+    var ret = zip(y,x);
     return ret;
   }
 
   ///Zips two ```Lists``` into a ```Map```.
   Map<Object, Object> zip (List<Object> keys, List<Object> values) {
-    Map<Object,Object> ret = {};
+    var ret = <Object,Object>{};
     for (var i = 0; i<keys.length; i++) {
-      Map<Object,Object> temp = {keys[i]: values[i]};
+      var temp = <Object,Object>{keys[i]: values[i]};
       ret.addAll(temp);
     }
     return ret;
@@ -84,14 +76,14 @@ class StarCollectionsUtils {
 
   ///Unzips a ```Map``` into two ```Lists``` and returns a ```List``` containing the two ```Lists```.
   List<List<Object>> unzip (Map<Object,Object> inp) {
-    List<List<Object>> ret = [];
+    var ret = <List<Object>>[];
     ret.add(inp.keys.toList());
     ret.add(inp.values.toList());
     return ret;
   }
 
   ///Checks if every ```Object``` in ```inp``` satisfies test
-  bool every (List<Object> inp, bool test(Object element)) {
+  bool every (List<Object> inp, bool Function(Object element) test) {
     for (var i in inp) {
       if (!test(i)) {
         return false;
@@ -99,6 +91,4 @@ class StarCollectionsUtils {
     }
     return true;
   }
-
-
 }

@@ -1,16 +1,8 @@
 /*
 Starfruit, a set of Dart utility libraries.
-Copyright (C) 2019 Aditya Kishore
+Copyright (C) 2020 Aditya Kishore
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 */
 
 import 'dart:math';
@@ -19,27 +11,17 @@ import '../mathutils.dart';
 
 ///A class that takes in a set of data as its constructor and can perform various
 ///statistical utilities with it.
-class StarStats {
-  List<num> a;
-
-  ///Takes a set of numerical data
-  StarStats(List<num> input) {
-    a = input;
-  }
-
-  ///Get given data
-  List<num> get baseSet => a;
-
+extension StarStats on List<num> {
   ///Returns the median of given set.
   num get median {
-    a.sort();
-    if (a.length.isOdd) {
-      return a[(a.length/2).floor()];
+    sort();
+    if (length.isOdd) {
+      return this[(length/2).floor()];
     }
     else {
-      var x = a[(a.length/2).floor()];
-      var y = a[(a.length/2).floor()-1];
-      return StarMathUtils().mean(x, y);
+      var x = this[(length/2).floor()];
+      var y = this[(length/2).floor()-1];
+      return mathUtils.mean(x, y);
     }
   }
 
@@ -47,28 +29,28 @@ class StarStats {
   num get mean {
     num sum = 0;
 
-    for (var i in a) {
+    for (var i in this) {
       sum += i;
     }
 
-    return sum/a.length;
+    return sum/length;
   }
 
   ///Returns the mode of given set.
   num get mode {
     int maxValue = 0, maxCount = 0, i, j;
 
-    for (i = 0; i < a.length; ++i) {
-      int count = 0;
-      for (j = 0; j < a.length; ++j) {
-        if (a[j] == a[i]) {
+    for (i = 0; i < length; ++i) {
+      var count = 0;
+      for (j = 0; j < length; ++j) {
+        if (this[j] == this[i]) {
           ++count;
         }
       }
 
       if (count > maxCount) {
         maxCount = count;
-        maxValue = a[i];
+        maxValue = this[i];
       }
     }
     return maxValue;
@@ -77,11 +59,11 @@ class StarStats {
   ///Returns the variance of given set.
   num get variance {
     num totvar = 0;
-    num avg = mean;
-    for (var i in a) {
+    var avg = mean;
+    for (var i in this) {
       totvar += pow(i-avg, 2);
     }
-    return totvar/(a.length-1);
+    return totvar/(length-1);
   }
 
   ///Returns the standard deviation of given set.
@@ -91,8 +73,8 @@ class StarStats {
 
   ///Returns the number of unique digits in given set (a.k.a. cardinality).
   num get cardinality {
-    List<num> covdelems = [];
-    for (var i in a) {
+    var covdelems = <num>[];
+    for (var i in this) {
       if (!covdelems.contains(i)) {
         covdelems.add(i);
       }
@@ -102,13 +84,13 @@ class StarStats {
 
   ///Returns the k greatest elements of given set.
   List<num> topElements (num k) {
-    a.sort();
-    return a.sublist(a.length-k);
+    sort();
+    return sublist(length-k);
   }
 
   ///Returns the k least elements of given set.
   List<num> bottomElements (num k) {
-    a.sort();
-    return a.sublist(0,k);
+    sort();
+    return sublist(0,k);
   }
 }

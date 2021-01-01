@@ -24,21 +24,18 @@ so I won't try. You **should** use the usage examples and documentation to under
 the utilities of this library. For here, I'm just offering basic details on how to 
 instantiate every class.
 
-##### StarMathUtils() OR mUtils
-To use, instantiate class with StarMathUtils() or use default instantiation (mUtils).
+##### StarMathUtils (mathUtils)
+To use, call methods on the singleton instance mathUtils (e.g. `mathUtils.chunks([1, 2, 3, 4, 5, 6], 2)` ).
 
-##### StarCollectionUtils() OR cUtils
-To use, instantiate class with StarCollectionsUtils() or use default instantiation (cUtils).
+##### StarCollectionUtils (collectionUtils)
+To use, call methods on the singleton instance collectionUtils (e.g. `collectionUtils.chunks([1, 2, 3, 4, 5, 6], 2)` ).
 
-##### StarStats (```List<num>``` dataset)
-To use, instantiate class with ``` StarStats(List<num> a) ``` and pass desired data as a paramater.
+##### StarStats (`List<num>`)
+To use, collect a list of numerical input data.
 
-##### StarStatsXY (```Map<num,num>``` map of points)
-To use, instantiate class with ``` StarStatsXY(Map<num,num> xy) ``` and pass desired data as parameter, 
-where input data is formatted {x1: y1, x2: y2, x3: y3, ...}
-
-##### StarLinkedList (```List<Object>``` base list)
-To use, instantiate class with ``` StarLinkedList (List<Object> a) ``` and pass base list as a paramater.
+##### StarStatsXY (```Map<num,num>``` of points)
+To use, collect input data formatted {x1: y1, x2: y2, x3: y3, ...}. You can then call StarStatsXY methods
+on it, because StarStatsXY is defined as an extension on Map<num, num>.
 
 ---
 
@@ -50,66 +47,66 @@ To use, instantiate class with ``` StarLinkedList (List<Object> a) ``` and pass 
 import 'package:starfruit/starfruit.dart';
 
 main() {
-  //Round to 2 decimal places
+  /Round to 2 decimal places
   //Ceiling and flooring to decimal places is also available
-  print("Round 3.5634 to 2 decimal places:");
-  print(mUtils.roundToDouble(3.5634, 2));
-  print("");
+  print('Round 3.5634 to 2 decimal places:');
+  print(mathUtils.roundToDouble(3.5634, 2));
+  print('');
 
   //Power of two check
-  print("Is 8 a power of two?");
-  print(mUtils.isPowerOfTwo(8));
-  print("");
+  print('Is 8 a power of two?');
+  print(mathUtils.isPowerOfTwo(8));
+  print('');
 
   //Calculate log base 2 of 8
-  print("Calculate log base 2 of 8:");
-  print(mUtils.log(2, 8));
-  print("");
+  print('Calculate log base 2 of 8:');
+  print(mathUtils.log(2, 8));
+  print('');
 
   //double isInteger check
-  print("Is 6.0 an integer?");
-  print(mUtils.isMathematicalInteger(6.0));
-  print("");
+  print('Is 6.0 an integer?');
+  print(mathUtils.isMathematicalInteger(6.0));
+  print('');
 
   //Calculate 5!
-  print("Calculate 5 factorial:");
-  print(mUtils.factorial(5));
-  print("");
+  print('Calculate 5 factorial:');
+  print(mathUtils.factorial(5));
+  print('');
 
   //Check if 2 is within 3 of 5
-  print("Is 2 within 3 of 5?");
-  print(mUtils.fuzzyEquals(2, 5, 3));
-  print("");
+  print('Is 2 within 3 of 5?');
+  print(mathUtils.fuzzyEquals(2, 5, 3));
+  print('');
 
   //Check if 7919 is a prime number
-  print("Is 7919 prime?");
-  print(mUtils.isPrime(7919));
-  print("");
+  print('Is 7919 prime?');
+  print(mathUtils.isPrime(7919));
+  print('');
 
   //LCM of 2 and 7
-  print("Calculate LCM of 2 and 7:");
-  print(mUtils.lcm(2, 7));
-  print("");
+  print('Calculate LCM of 2 and 7:');
+  print(mathUtils.lcm(2, 7));
+  print('');
 
   //sinh of 1 radian
-  print("Calculate sinh of 1 radian:");
-  print(mUtils.sinh(1));
-  print("");
+  print('Calculate sinh of 1 radian:');
+  print(mathUtils.sinh(1));
+  print('');
 
   //mean of 3 and 7
-  print("Calculate mean of 3 and 7:");
-  print(mUtils.mean(3,7));
-  print("");
+  print('Calculate mean of 3 and 7:');
+  print(mathUtils.mean(3,7));
+  print('');
 
-  //nCr where n = 2 and r = 5
-  print("Calculate the binomial coefficient of 2 and 5:");
-  print(mUtils.combinationsOf(2, 5));
-  print("");
+  //nCr where n = 5 and r = 2
+  print('Calculate the binomial coefficient of 2 and 5:');
+  print(mathUtils.combinationsOf(5, 2));
+  print('');
 
-  //nPr where n = 2 and r = 5
-  print("Calculate the permutations of 2 and 5:");
-  print(mUtils.permutationsOf(2, 5));
-  print("");
+  //nPr where n = 5 and r = 2
+  print('Calculate the permutations of 5 and 2:');
+  print(mathUtils.permutationsOf(5, 2));
+  print('');
 }
 ```
 ##### Collection Utilities:
@@ -160,7 +157,7 @@ main() {
 import 'package:starfruit/starfruit.dart';
 
 main() {
-  var stats = StarStats([1,3,4,5,12,3,4,67,8,0,22]);
+  var stats = [1,3,4,5,12,3,4,67,8,0,22];
 
   //median
   print("Calculate the median:");
@@ -204,7 +201,7 @@ main() {
 import 'package:starfruit/starfruit.dart';
 
 main() {
-    var xystats = StarStatsXY({2:3, 7:4, 4:6, 8:9, 1:2, 3:5, 11:14, 12:18});
+  var xystats = {2:3, 7:4, 4:6, 8:9, 1:2, 3:5, 11:14, 12:18};
 
   //Get correlation coefficient
   print("Calculate correlation coefficient:");
@@ -247,66 +244,6 @@ main() {
 }
 ```
 
-##### Linked Lists:
-
-```dart
-import 'package:starfruit/starfruit.dart';
-
-main() {
-  //giving numbers, but can take any object
-  var llist = StarLinkedList( [12,5,6,1,4,6] );
-
-  //Push object to front of list
-  print("Push to front of list:");
-  llist.push(8);
-  print(llist);
-  print("");
-
-  //Add object to back of list
-  print("Add to back of list:");
-  llist.add(8);
-  print(llist);
-  print("");
-
-  //Fetch 4th index (5th item) of list
-  print("4th index:");
-  print(llist[4]);
-  print("");
-
-  //Add two StarLinkedLists together
-  print("Double llist:");
-  print(llist+llist);
-  print("");
-
-  //Make 4th index 8
-  print("Make 4th index 8:");
-  llist[4] = 8;
-  print(llist);
-  print("");
-
-  //Add 3 numbers
-  print("Add 3 numbers:");
-  print(llist.addAll([1,2,3]));
-  print("");
-
-  //Remove object from StarLinkedList given value
-  print("Remove object from StarLinkedList given value:");
-  llist.remove(12);
-  print(llist);
-  print("");
-
-  //Delete object from StarLinkedList given index
-  print("Delete object from StarLinkedList given index:");
-  llist.delete(2);
-  print(llist);
-  print("");
-
-  //Take sublist of StarLinkedList
-  print("Take sublist of StarLinkedList:");
-  print(llist.sublist(1,4));
-  print("");
-}
-```
 ---
 
 ## Features and bugs
@@ -323,5 +260,5 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 
 ###### Starfruit, a set of Dart utility libraries.
-###### ©2019 Aditya Kishore
+###### ©2020 Aditya Kishore
 ###### Licensed under the GNU LGPLv3 (See LICENSE)

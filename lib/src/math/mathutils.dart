@@ -1,42 +1,37 @@
 /*
 Starfruit, a set of Dart utility libraries.
-Copyright (C) 2019 Aditya Kishore
+Copyright (C) 2020 Aditya Kishore
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 */
 
 import 'dart:math';
 import 'dart:math' as math;
 
 ///Default implementation of StarMathUtils().
-StarMathUtils get mUtils => StarMathUtils();
+_StarMathUtils get mathUtils => _StarMathUtils();
 
 ///A class of packaged math utilities and various commonplace functions not
 ///provided by (or improving upon) Dart functions. They can be used the default
 ///construction of StarMathUtils, mUtils.
-class StarMathUtils {
+class _StarMathUtils {
   ///Round to a double place where the second input corresponds to the amount
   ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
   ///
-  ///```decPlaces``` must be >= 0
+  ///```decPlaces``` must be >= 0 and <= 13.
   double roundToDouble(double input, int decPlaces) {
-    double parsedInp = 1.0;
+    var parsedInp = 1.0;
     int fac = pow(10, decPlaces);
     parsedInp = parsedInp / fac;
     if ((input % 1).toString().length - 2 < decPlaces) {
       throw ArgumentError(
-          "Invalid length for input: Already less than given decPlaces");
+          'Invalid length for input: Already less than given decPlaces');
     } else {
-      input = (input * fac).round() / fac;
-      return input;
+      if ((fuzzyEquals(input*fac%1, 0.5, 0.0000000000001) || input*fac%1 > 0.5)) {
+        return (input * fac).ceil() / fac;
+      } else {
+        return (input * fac).floor() / fac;
+      }
     }
   }
 
@@ -45,12 +40,12 @@ class StarMathUtils {
   ///
   ///```decPlaces``` must be >= 0
   double ceilToDouble(double input, int decPlaces) {
-    double parsedInp = 1.0;
+    var parsedInp = 1.0;
     int fac = pow(10, decPlaces);
     parsedInp = parsedInp / fac;
     if ((input % 1).toString().length - 2 < decPlaces) {
       throw ArgumentError(
-          "Invalid length for input: Already less than given decPlaces");
+          'Invalid length for input: Already less than given decPlaces');
     } else {
       input = (input * fac).ceil() / fac;
       return input;
@@ -62,30 +57,48 @@ class StarMathUtils {
   ///
   ///```decPlaces``` must be >= 0
   double floorToDouble(double input, int decPlaces) {
-    double parsedInp = 1.0;
+    var parsedInp = 1.0;
     int fac = pow(10, decPlaces);
     parsedInp = parsedInp / fac;
     if ((input % 1).toString().length - 2 < decPlaces) {
       throw ArgumentError(
-          "Invalid length for input: Already less than given decPlaces");
+          'Invalid length for input: Already less than given decPlaces');
     } else {
       input = (input * fac).floor() / fac;
       return input;
     }
   }
 
-  ///Returns whether given ```input``` is a power of two.
+  ///Returns whether given ```input``` is a perfect power of two.
   bool isPowerOfTwo(num input) {
-    return log(2, input).ceil() == log(2, input).floor();
+    if (input <= 0) {
+      return false;
+    }
+    return isMathematicalInteger(logBase(2, input));
+  }
+
+  ///Returns whether given ```input``` is a perfect power of `n`.
+  bool isPowerOfN(num input, num n) {
+    if (input < 0 && n > 0) {
+      return false;
+    } else if ((input == 0) | (n == 0)) {
+      return false;
+    } else if (input > 0 && n > 0) {
+      return isMathematicalInteger(logBase(n, input));
+    } else if (input < 0 && n < 0) {
+      return logBase(-n, -input) % 2 == 1;
+    } else {
+      return logBase(-n, input) % 2 == 0;
+    }
   }
 
   ///Returns log given ```base``` and ```input```.
-  double log(num base, num input) {
+  double logBase(num base, num input) {
     return math.log(input) / math.log(base);
   }
 
   ///Returns whether given double is a mathematical integer (e.x. 6.0).
-  bool isMathematicalInteger(double input) {
+  bool isMathematicalInteger(num input) {
     return input % 1 == 0.0;
   }
 
@@ -106,7 +119,7 @@ class StarMathUtils {
 
   ///A list of provided factorials, where ```factorials[i] == i!```
   ///
-  ///This list will grow the more you use the provided ```factorial``` method with values > 11
+  ///This list will grow the more you use the provided ```factorial``` method with values > 14
   static List<int> factorials = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800, 87178291200];
 
   ///Returns true if ```x``` is within some tolerance of ```y```
@@ -118,16 +131,14 @@ class StarMathUtils {
   ///Tolerance must be positive
   bool fuzzyEquals (num x, num y, num tolerance) {
     if (tolerance < 0) {
-      throw ArgumentError("Tolerance must be >= 0");
+      throw ArgumentError('Tolerance must be >= 0');
     }
-    num xL = x + tolerance;
-    num xS = x - tolerance;
+    var xL = x + tolerance;
+    var xS = x - tolerance;
     return xL >= y && y >= xS;
   }
 
-
-
-  ///Tests if the number ```n``` is probably a prime.
+  ///Tests if the number ```n``` is (probably) a prime.
   ///
   ///This variant of the probabilistic prime test by Miller–Rabin is deterministic.
   ///
@@ -208,12 +219,17 @@ class StarMathUtils {
   ///
   ///Also described as the binomial coefficient.
   int combinationsOf(int n, int r) {
-    return ( factorial(r) / (factorial(r-n) * factorial(n) ) ).round();
+    return ( factorial(n) / (factorial(n-r) * factorial(r))).round();
   }
 
   ///Permutations function from probability, nPr.
   int permutationsOf(int n, int r) {
-    return (factorial(r)/factorial(r-n)).round();
+    return (factorial(n)/factorial(n-r)).round();
   }
 
+  /// Compute the signum of a number.
+  /// The signum is -1 for negative numbers, +1 for positive numbers and 0 otherwise.
+  num signum(num a) {
+    return (a < 0.0) ? -1.0 : ((a > 0.0) ? 1.0 : a);
+  }
 }

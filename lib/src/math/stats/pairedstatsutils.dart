@@ -1,55 +1,32 @@
 /*
 Starfruit, a set of Dart utility libraries.
-Copyright (C) 2019 Aditya Kishore
+Copyright (C) 2020 Aditya Kishore
 
-This program is free software: you can redistribute it and/or modify
-it under the terms of the GNU Lesser General Public License as published by
-the Free Software Foundation, either version 3 of the License, or
-(at your option) any later version.
-
-This program is distributed in the hope that it will be useful,
-but WITHOUT ANY WARRANTY; without even the implied warranty of
-MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
-GNU Lesser General Public License for more details.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 */
 
 import 'statsutils.dart';
 import 'package:linalg/linalg.dart';
 import 'dart:math';
 
-///A class that takes in XY data and can perform some algebraic utilities
-class StarStatsXY {
-  Map<num,num> xy;
-
-  ///Takes a map, formatted {x1: y1, x2: y2, x3: y3} etc.
-  StarStatsXY(Map<num,num> input) {
-    if (input.keys.length <3) {
-      throw ArgumentError("Input must be at least three in length...");
-    }
-    xy = input;
-  }
-
-  ///Get the given data.
-  Map<num,num> get baseMap => xy;
-
+///A class that takes in XY data and can perform some algebraic utilities.
+extension StarStatsXY on Map<num, num> {
   ///Get the x coordinates of the given data.
-  List<num> get x => xy.keys.toList();
+  List<num> get x => keys.toList();
 
   ///Get the y coordinates of the given data.
-  List<num> get y => xy.values.toList();
+  List<num> get y => values.toList();
 
   ///Calculates the correlation coefficient.
   ///This is the strength of the linear relationship of given points.
   ///
   ///(Also known as r) The larger abs(r) is, the stronger the correlation.
   num get corCoefficient {
-    StarStats xStats = StarStats(x);
-    StarStats yStats = StarStats(y);
-    num Sx = xStats.stdDev;
-    num Sy = yStats.stdDev;
+    var Sx = x.stdDev;
+    var Sy = y.stdDev;
     num r = 0;
-    num avgX = xStats.mean;
-    num avgY = yStats.mean;
+    var avgX = x.mean;
+    var avgY = y.mean;
     for (num n = 0; n < x.length; n++) {
       r += ((x[n] - avgX) * (y[n] - avgY));
     }
@@ -74,21 +51,19 @@ class StarStatsXY {
   ///
   ///More accurate than normal determination coefficient.
   num get adjDetCoefficient {
-    int n = x.length;
-    num orig =  pow(corCoefficient, 2);
+    var n = x.length;
+    var orig =  pow(corCoefficient, 2);
     return 1 - (1-orig)*((n-1)/(n-2));
   }
 
   ///Calculate linear regression of a set of points: Returns a list of form y =
   ///mx + b, with `linearReg[0]` being m and `linearReg[1]` being b.
   List<num> get linReg {
-    List<num> slopevalue = [];
-    StarStats xStats = StarStats(x);
-    StarStats yStats = StarStats(y);
-    num avgX = xStats.mean;
-    num avgY = yStats.mean;
-    num Sx = xStats.stdDev;
-    num Sy = yStats.stdDev;
+    var slopevalue = <num>[];
+    var avgX = x.mean;
+    var avgY = y.mean;
+    var Sx = x.stdDev;
+    var Sy = y.stdDev;
     num r = 0;
     num m = 0;
 
@@ -109,22 +84,22 @@ class StarStatsXY {
   ///Calculate quadratic regression of a set of points: Returns a list of form y =
   ///ax^2 + bx + c, with `quadReg[0]` being a, `quadReg[1]` being b, and `quadreg[2]` being c.
   List<num> get quadReg {
-    List<double> yy = [];
-    List<double> xx = [];
+    var yy = <double>[];
+    var xx = <double>[];
     for (var numb in y) {
       yy.add(numb.toDouble());
     }
     for (var numb in x) {
       xx.add(numb.toDouble());
     }
-    List<double> xcol1 = List.filled(xx.length, 1.0);
-    List<double> xcol3 = List(xx.length);
+    var xcol1 = List<double>.filled(xx.length, 1.0);
+    var xcol3 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol3[i] = pow(xx[i],2);
     }
-    Matrix Y = Matrix([yy]).transpose();
-    Matrix X = Matrix([xcol1, xx, xcol3]).transpose();
-    Matrix B = (X.transpose() * X).inverse() * X.transpose() * Y;
+    var Y = Matrix([yy]).transpose();
+    var X = Matrix([xcol1, xx, xcol3]).transpose();
+    var B = (X.transpose() * X).inverse() * X.transpose() * Y;
     var c = B[0][0];
     var b = B[1][0];
     var a = B[2][0];
@@ -134,26 +109,26 @@ class StarStatsXY {
   ///Calculate quadratic regression of a set of points: Returns a list of form y =
   ///ax^3 + bx^2 + cx + d, with `cubicReg[0]` being a, `cubicReg[1]` being b, `cubicReg[2]` being c, and `cubicReg[3]` being d.
   List<num> get cubicReg {
-    List<double> yy = [];
-    List<double> xx = [];
+    var yy = <double>[];
+    var xx = <double>[];
     for (var numb in y) {
       yy.add(numb.toDouble());
     }
     for (var numb in x) {
       xx.add(numb.toDouble());
     }
-    List<double> xcol1 = List.filled(xx.length, 1.0);
-    List<double> xcol3 = List(xx.length);
+    var xcol1 = List<double>.filled(xx.length, 1.0);
+    var xcol3 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol3[i] = pow(xx[i],2);
     }
-    List<double> xcol4 = List(xx.length);
+    var xcol4 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol4[i] = pow(xx[i],3);
     }
-    Matrix Y = Matrix([yy]).transpose();
-    Matrix X = Matrix([xcol1, xx, xcol3, xcol4]).transpose();
-    Matrix B = (X.transpose() * X).inverse() * X.transpose() * Y;
+    var Y = Matrix([yy]).transpose();
+    var X = Matrix([xcol1, xx, xcol3, xcol4]).transpose();
+    var B = (X.transpose() * X).inverse() * X.transpose() * Y;
     var d = B[0][0];
     var c = B[1][0];
     var b = B[2][0];
@@ -165,30 +140,30 @@ class StarStatsXY {
   ///ax^4 + bx^3 + cx^2 + dx + e, with `cubicReg[0]` being a, `cubicReg[1]` being b,
   ///`cubicReg[2]` being c, `cubicReg[3]` being d, and `cubicReg[4]` being e.
   List<num> get quarReg {
-    List<double> yy = [];
-    List<double> xx = [];
+    var yy = <double>[];
+    var xx = <double>[];
     for (var numb in y) {
       yy.add(numb.toDouble());
     }
     for (var numb in x) {
       xx.add(numb.toDouble());
     }
-    List<double> xcol1 = List.filled(xx.length, 1.0);
-    List<double> xcol3 = List(xx.length);
+    var xcol1 = List<double>.filled(xx.length, 1.0);
+    var xcol3 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol3[i] = pow(xx[i],2);
     }
-    List<double> xcol4 = List(xx.length);
+    var xcol4 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol4[i] = pow(xx[i],3);
     }
-    List<double> xcol5 = List(xx.length);
+    var xcol5 = List<double>(xx.length);
     for (var i = 0; i <xx.length; i++) {
       xcol5[i] = pow(xx[i],4);
     }
-    Matrix Y = Matrix([yy]).transpose();
-    Matrix X = Matrix([xcol1, xx, xcol3, xcol4, xcol5]).transpose();
-    Matrix B = (X.transpose() * X).inverse() * X.transpose() * Y;
+    var Y = Matrix([yy]).transpose();
+    var X = Matrix([xcol1, xx, xcol3, xcol4, xcol5]).transpose();
+    var B = (X.transpose() * X).inverse() * X.transpose() * Y;
     var e = B[0][0];
     var d = B[1][0];
     var c = B[2][0];

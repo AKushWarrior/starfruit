@@ -1,3 +1,9 @@
+## 1.0.0
+- Fixed bugs
+- Reworked APIs to extensions where possible
+- Started large test suite
+- Relicensed to MPL 2.0
+
 ## 0.3.1+1
 - Major README issue
 - No functional change
