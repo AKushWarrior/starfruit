@@ -261,4 +261,4 @@ Please file feature requests and bugs at the [issue tracker][tracker].
 
 ###### Starfruit, a set of Dart utility libraries.
 ###### ©2020 Aditya Kishore
-###### Licensed under the GNU LGPLv3 (See LICENSE)
+###### Licensed under the MPL 2.0 (See LICENSE)

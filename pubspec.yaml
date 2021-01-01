@@ -3,7 +3,6 @@ description: A mathematical library extending and bettering provided dart and da
 version: 1.0.0
 homepage: https://github.com/AKushWarrior/starfruit
 repository: https://github.com/AKushWarrior/starfruit
-author: Aditya Kishore <akushwarrior@gmail.com>
 
 environment:
   sdk: '>=2.6.0 <3.0.0'
