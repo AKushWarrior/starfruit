@@ -1,4 +1,4 @@
-## 1.0.0
+## 1.0.0 - 1.0.0+1
 - Fixed bugs
 - Reworked APIs to extensions where possible
 - Started large test suite

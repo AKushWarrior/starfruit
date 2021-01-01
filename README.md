@@ -31,7 +31,8 @@ To use, call methods on the singleton instance mathUtils (e.g. `mathUtils.chunks
 To use, call methods on the singleton instance collectionUtils (e.g. `collectionUtils.chunks([1, 2, 3, 4, 5, 6], 2)` ).
 
 ##### StarStats (`List<num>`)
-To use, collect a list of numerical input data.
+To use, collect a list of numerical input data. You can then call StarStats methods on it, because
+StarStats is defined as an extension on List<num>.
 
 ##### StarStatsXY (```Map<num,num>``` of points)
 To use, collect input data formatted {x1: y1, x2: y2, x3: y3, ...}. You can then call StarStatsXY methods
