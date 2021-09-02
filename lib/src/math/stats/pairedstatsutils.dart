@@ -27,7 +27,7 @@ extension StarStatsXY on Map<num, num> {
     num r = 0;
     var avgX = x.mean;
     var avgY = y.mean;
-    for (num n = 0; n < x.length; n++) {
+    for (var n = 0; n < x.length; n++) {
       r += ((x[n] - avgX) * (y[n] - avgY));
     }
     r /= ((Sx * Sy)*(x.length-1));
@@ -52,7 +52,7 @@ extension StarStatsXY on Map<num, num> {
   ///More accurate than normal determination coefficient.
   num get adjDetCoefficient {
     var n = x.length;
-    var orig =  pow(corCoefficient, 2);
+    var orig = pow(corCoefficient, 2);
     return 1 - (1-orig)*((n-1)/(n-2));
   }
 
@@ -68,7 +68,7 @@ extension StarStatsXY on Map<num, num> {
     num m = 0;
 
     //calculate r; ignore
-    for (num n = 0; n < x.length; n++) {
+    for (var n = 0; n < x.length; n++) {
       r += ((x[n] - avgX) * (y[n] - avgY));
     }
     r /= ((Sx * Sy)*(x.length-1));
@@ -93,9 +93,9 @@ extension StarStatsXY on Map<num, num> {
       xx.add(numb.toDouble());
     }
     var xcol1 = List<double>.filled(xx.length, 1.0);
-    var xcol3 = List<double>(xx.length);
+    var xcol3 = List<double>.filled(xx.length, 0);
     for (var i = 0; i <xx.length; i++) {
-      xcol3[i] = pow(xx[i],2);
+      xcol3[i] = pow(xx[i],2).toDouble();
     }
     var Y = Matrix([yy]).transpose();
     var X = Matrix([xcol1, xx, xcol3]).transpose();
@@ -118,13 +118,13 @@ extension StarStatsXY on Map<num, num> {
       xx.add(numb.toDouble());
     }
     var xcol1 = List<double>.filled(xx.length, 1.0);
-    var xcol3 = List<double>(xx.length);
+    var xcol3 = List<double>.filled(xx.length, 0);
     for (var i = 0; i <xx.length; i++) {
-      xcol3[i] = pow(xx[i],2);
+      xcol3[i] = pow(xx[i],2).toDouble();
     }
-    var xcol4 = List<double>(xx.length);
+    var xcol4 = List<double>.filled(xx.length, 0);
     for (var i = 0; i <xx.length; i++) {
-      xcol4[i] = pow(xx[i],3);
+      xcol4[i] = pow(xx[i],3).toDouble();
     }
     var Y = Matrix([yy]).transpose();
     var X = Matrix([xcol1, xx, xcol3, xcol4]).transpose();
@@ -149,17 +149,17 @@ extension StarStatsXY on Map<num, num> {
       xx.add(numb.toDouble());
     }
     var xcol1 = List<double>.filled(xx.length, 1.0);
-    var xcol3 = List<double>(xx.length);
-    for (var i = 0; i <xx.length; i++) {
-      xcol3[i] = pow(xx[i],2);
+    var xcol3 = List<double>.filled(xx.length, 0);
+    for (var i = 0; i < xx.length; i++) {
+      xcol3[i] = pow(xx[i], 2).toDouble();
     }
-    var xcol4 = List<double>(xx.length);
+    var xcol4 = List<double>.filled(xx.length, 0);
     for (var i = 0; i <xx.length; i++) {
-      xcol4[i] = pow(xx[i],3);
+      xcol4[i] = pow(xx[i],3).toDouble();
     }
-    var xcol5 = List<double>(xx.length);
+    var xcol5 = List<double>.filled(xx.length, 0);
     for (var i = 0; i <xx.length; i++) {
-      xcol5[i] = pow(xx[i],4);
+      xcol5[i] = pow(xx[i],4).toDouble();
     }
     var Y = Matrix([yy]).transpose();
     var X = Matrix([xcol1, xx, xcol3, xcol4, xcol5]).transpose();

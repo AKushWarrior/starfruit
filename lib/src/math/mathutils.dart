@@ -18,55 +18,31 @@ class _StarMathUtils {
   ///Round to a double place where the second input corresponds to the amount
   ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
   ///
-  ///```decPlaces``` must be >= 0 and <= 13.
-  double roundToDouble(double input, int decPlaces) {
-    var parsedInp = 1.0;
-    int fac = pow(10, decPlaces);
-    parsedInp = parsedInp / fac;
-    if ((input % 1).toString().length - 2 < decPlaces) {
-      throw ArgumentError(
-          'Invalid length for input: Already less than given decPlaces');
-    } else {
-      if ((fuzzyEquals(input*fac%1, 0.5, 0.0000000000001) || input*fac%1 > 0.5)) {
-        return (input * fac).ceil() / fac;
-      } else {
-        return (input * fac).floor() / fac;
-      }
+  /// Note that, due to floating point errors, this method doesn't work past
+  /// ~14 decimal places.
+  num roundToDouble(num input, int decPlaces) {
+    for (int i = 0; i < decPlaces; i++) {
+      input *= 10;
     }
+    input += 0.00000000000001;
+    input = input.round();
+    return input / pow(10, decPlaces);
   }
 
   ///Round up (ceil) to a double place where the second input corresponds to the amount
   ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
-  ///
-  ///```decPlaces``` must be >= 0
-  double ceilToDouble(double input, int decPlaces) {
-    var parsedInp = 1.0;
-    int fac = pow(10, decPlaces);
-    parsedInp = parsedInp / fac;
-    if ((input % 1).toString().length - 2 < decPlaces) {
-      throw ArgumentError(
-          'Invalid length for input: Already less than given decPlaces');
-    } else {
-      input = (input * fac).ceil() / fac;
-      return input;
-    }
+  double ceilToDouble(num input, int decPlaces) {
+    var fac = pow(10, decPlaces);
+    input = (input * fac).ceil() / fac;
+    return input.toDouble();
   }
 
   ///Round down (floor) to a double place where the second input corresponds to the amount
   ///of decimal places in the first double (eg 1 ==> x.x, 2 ==> x.xx, 3 ==> x.xxx).
-  ///
-  ///```decPlaces``` must be >= 0
-  double floorToDouble(double input, int decPlaces) {
-    var parsedInp = 1.0;
-    int fac = pow(10, decPlaces);
-    parsedInp = parsedInp / fac;
-    if ((input % 1).toString().length - 2 < decPlaces) {
-      throw ArgumentError(
-          'Invalid length for input: Already less than given decPlaces');
-    } else {
-      input = (input * fac).floor() / fac;
-      return input;
-    }
+  double floorToDouble(num input, int decPlaces) {
+    var fac = pow(10, decPlaces);
+    input = (input * fac).floor() / fac;
+    return input.toDouble();
   }
 
   ///Returns whether given ```input``` is a perfect power of two.
@@ -105,7 +81,8 @@ class _StarMathUtils {
   ///Returns factorial given integer ```input```.
   int factorial(int input) {
     if (input < 0) {
-      throw ArgumentError('factorial($input) is undefined for negative arguments.');
+      throw ArgumentError(
+          'factorial($input) is undefined for negative arguments.');
     }
     if (input < factorials.length) {
       return factorials[input];
@@ -113,14 +90,42 @@ class _StarMathUtils {
     var r = factorials.last;
     for (var i = factorials.length; i <= input; i++) {
       r *= i;
+      factorials.add(r);
     }
     return r;
   }
 
-  ///A list of provided factorials, where ```factorials[i] == i!```
+  /// A list of provided factorials, where ```factorials[i] == i!```
   ///
-  ///This list will grow the more you use the provided ```factorial``` method with values > 14
-  static List<int> factorials = [1, 1, 2, 6, 24, 120, 720, 5040, 40320, 362880, 3628800, 39916800, 479001600, 6227020800, 87178291200];
+  /// This list has every factorial less than 2^64 (20! and under). The
+  /// `factorial` method wraps this in some safety; it throws on negative
+  /// numbers with an explanation, and multiplies to attempt to calculate
+  /// factorials higher than 20!. The Dart language does not currently natively
+  /// support 64+ bit integers, but if that happens in the future, the factorial
+  /// method should still work.
+  static List<int> factorials = [
+    1,
+    1,
+    2,
+    6,
+    24,
+    120,
+    720,
+    5040,
+    40320,
+    362880,
+    3628800,
+    39916800,
+    479001600,
+    6227020800,
+    87178291200,
+    1307674368000,
+    20922789888000,
+    355687428096000,
+    6402373705728000,
+    121645100408832000,
+    2432902008176640000,
+  ];
 
   ///Returns true if ```x``` is within some tolerance of ```y```
   ///
@@ -129,7 +134,7 @@ class _StarMathUtils {
   ///Ex. 2: fuzzyEquals(1, 6, 3) returns false
   ///
   ///Tolerance must be positive
-  bool fuzzyEquals (num x, num y, num tolerance) {
+  bool fuzzyEquals(num x, num y, num tolerance) {
     if (tolerance < 0) {
       throw ArgumentError('Tolerance must be >= 0');
     }
@@ -138,11 +143,11 @@ class _StarMathUtils {
     return xL >= y && y >= xS;
   }
 
-  ///Tests if the number ```n``` is (probably) a prime.
+  ///Tests if the number `n` is (probably) a prime.
   ///
   ///This variant of the probabilistic prime test by Miller–Rabin is deterministic.
   ///
-  ///It has been verified to return correct results for all ```n``` < 341,550,071,728,321.
+  ///It has been verified to return correct results for all `n` < 341,550,071,728,321.
   bool isPrime(int n) {
     if (n == 2 || n == 3 || n == 5) {
       return true;
@@ -185,7 +190,9 @@ class _StarMathUtils {
   double acosh(num x) => math.log(x + math.sqrt(x * x - 1));
 
   ///Computes hyperbolic arc-sine of a number.
-  double asinh(num x) => x.isInfinite && x.isNegative ? x : math.log(x + math.sqrt(x * x + 1));
+  double asinh(num x) => x.isInfinite && x.isNegative
+      ? x.toDouble()
+      : math.log(x + math.sqrt(x * x + 1));
 
   ///Computes hyperbolic arc-tangent of a number.
   double atanh(num x) => math.log((1 + x) / (1 - x)) / 2;
@@ -205,7 +212,11 @@ class _StarMathUtils {
   ///Computes hyperbolic tangent of a number.
   double tanh(num x) {
     final a = math.exp(x), b = math.exp(-x);
-    return a.isInfinite ? 1 : b.isInfinite ? -1 : (a - b) / (a + b);
+    return a.isInfinite
+        ? 1
+        : b.isInfinite
+            ? -1
+            : (a - b) / (a + b);
   }
 
   /// Best method for computing the arithmetic mean.
@@ -219,12 +230,12 @@ class _StarMathUtils {
   ///
   ///Also described as the binomial coefficient.
   int combinationsOf(int n, int r) {
-    return ( factorial(n) / (factorial(n-r) * factorial(r))).round();
+    return (factorial(n) / (factorial(n - r) * factorial(r))).round();
   }
 
   ///Permutations function from probability, nPr.
   int permutationsOf(int n, int r) {
-    return (factorial(n)/factorial(n-r)).round();
+    return (factorial(n) / factorial(n - r)).round();
   }
 
   /// Compute the signum of a number.

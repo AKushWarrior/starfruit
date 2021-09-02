@@ -7,7 +7,7 @@ void main () {
   //Round to 2 decimal places
   //Ceiling and flooring to decimal places is also available
   print('Round 3.5634 to 2 decimal places:');
-  print(mathUtils.roundToDouble(3.5634, 2));
+  print(mathUtils.roundToDouble(1.005, 2));
   print('');
 
   //Power of two check

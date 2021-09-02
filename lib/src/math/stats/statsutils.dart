@@ -8,11 +8,12 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 import 'dart:math';
 
 import '../mathutils.dart';
+import 'package:collection/collection.dart';
 
 ///A class that takes in a set of data as its constructor and can perform various
 ///statistical utilities with it.
 extension StarStats on List<num> {
-  ///Returns the median of given set.
+  ///Returns the median of this list.
   num get median {
     sort();
     if (length.isOdd) {
@@ -21,11 +22,12 @@ extension StarStats on List<num> {
     else {
       var x = this[(length/2).floor()];
       var y = this[(length/2).floor()-1];
-      return mathUtils.mean(x, y);
+      if (x is int && y is int) return mathUtils.mean(x, y);
+      return (x + y) / 2;
     }
   }
 
-  ///Returns the mean of given set.
+  ///Returns the mean of this list.
   num get mean {
     num sum = 0;
 
@@ -33,16 +35,19 @@ extension StarStats on List<num> {
       sum += i;
     }
 
-    return sum/length;
+    return sum / length;
   }
 
-  ///Returns the mode of given set.
+  /// Returns the mode of this list.
+  ///
+  /// If there are multiple modes, this returns the first mode.
   num get mode {
-    int maxValue = 0, maxCount = 0, i, j;
+    num maxValue = 0;
+    int maxCount = 0;
 
-    for (i = 0; i < length; ++i) {
+    for (var i = 0; i < length; ++i) {
       var count = 0;
-      for (j = 0; j < length; ++j) {
+      for (var j = 0; j < length; ++j) {
         if (this[j] == this[i]) {
           ++count;
         }
@@ -53,10 +58,13 @@ extension StarStats on List<num> {
         maxValue = this[i];
       }
     }
+
     return maxValue;
   }
 
-  ///Returns the variance of given set.
+  /// Returns the variance of this list, assuming this list is a sample.
+  ///
+  /// See [popVariance] for the assumption that this list is a population.
   num get variance {
     num totvar = 0;
     var avg = mean;
@@ -66,31 +74,52 @@ extension StarStats on List<num> {
     return totvar/(length-1);
   }
 
-  ///Returns the standard deviation of given set.
+  /// Returns the variance of this list, assuming this list is a population.
+  ///
+  /// See [variance] for the assumption that this list is a sample.
+  num get popVariance {
+    num totvar = 0;
+    var avg = mean;
+    for (var i in this) {
+      totvar += pow(i-avg, 2);
+    }
+    return totvar/length;
+  }
+
+  /// Returns the standard deviation of given set, assuming this list is a sample.
+  ///
+  /// See [popStdDev] for the assumption this is a population.
   num get stdDev {
     return sqrt(variance);
   }
 
-  ///Returns the number of unique digits in given set (a.k.a. cardinality).
+  ///Returns the standard deviation of given set, assuming this list is a population.
+  ///
+  /// See [stdDev] for the assumption this is a sample.
+  num get popStdDev {
+    return sqrt(variance * ((length - 1) / length));
+  }
+
+  ///Returns the number of unique numbers in given set (a.k.a. cardinality).
   num get cardinality {
-    var covdelems = <num>[];
+    var covdelems = <num>{};
     for (var i in this) {
-      if (!covdelems.contains(i)) {
-        covdelems.add(i);
-      }
+      covdelems.add(i);
     }
     return covdelems.length;
   }
 
   ///Returns the k greatest elements of given set.
-  List<num> topElements (num k) {
-    sort();
-    return sublist(length-k);
+  List<num> topElements (int k) {
+    var copy = toList(growable: false);
+    copy.sort();
+    return copy.sublist(length-k);
   }
 
   ///Returns the k least elements of given set.
-  List<num> bottomElements (num k) {
-    sort();
-    return sublist(0,k);
+  List<num> bottomElements (int k) {
+    var copy = toList(growable: false);
+    copy.sort();
+    return copy.sublist(0, k);
   }
 }

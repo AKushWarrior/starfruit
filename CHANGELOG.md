@@ -1,3 +1,9 @@
+## 2.0.0
+- Null Safety
+- Fixed minor bugs
+- No functional change from 1.0.0
+- Add population-based sample and variance methods.
+
 ## 1.0.0 - 1.0.0+1
 - Fixed bugs
 - Reworked APIs to extensions where possible
