@@ -1,6 +1,6 @@
 name: starfruit
 description: A mathematical library extending and bettering provided dart and dart:math functions.
-version: 2.0.0+1
+version: 2.0.0
 homepage: https://github.com/AKushWarrior/starfruit
 repository: https://github.com/AKushWarrior/starfruit
 
@@ -8,7 +8,6 @@ environment:
   sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
-  collection: ^1.15.0
   linalg: ^0.4.0
 
 dev_dependencies:

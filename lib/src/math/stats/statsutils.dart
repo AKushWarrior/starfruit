@@ -8,7 +8,6 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 import 'dart:math';
 
 import '../mathutils.dart';
-import 'package:collection/collection.dart';
 
 ///A class that takes in a set of data as its constructor and can perform various
 ///statistical utilities with it.
